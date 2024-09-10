@@ -1,0 +1,13 @@
+services:
+- type: web
+  name: backend
+  env: node
+  plan: free
+  buildCommand: "cd backend && npm run build"
+  startCommand: "cd backend && npm start"
+  repo: https://github.com/krishnamouli8/IoT-PS
+  branch: main
+  autoDeploy: true
+  # envVars:
+  #   - key: DATABASE_URL
+  #     value: <Your MongoDB URL here>
