@@ -6,7 +6,7 @@ const ESP32Status = () => {
 
   const fetchStatus = async () => {
     try {
-      const response = await axios.get('http://172.168.0.109:5000/api/status');
+      const response = await axios.get('http://web-back-umt4.onrender.com/api/status');
       setStatusCode(response.data.statusCode);
     } catch (error) {
       console.error('Error fetching status:', error);
