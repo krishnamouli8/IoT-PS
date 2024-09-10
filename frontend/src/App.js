@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ESP32Status = () => {
   const [statusCode, setStatusCode] = useState(null);
 
   const fetchStatus = async () => {
     try {
-      const response = await fetch('http://web-back-umt4.onrender.com/api/status');
-      if (response.ok) {
-        const data = await response.json();
-        setStatusCode(data.statusCode);
-      } else {
-        console.error('Failed to fetch status. Status:', response.status);
-      }
+      const response = await axios.get('http://web-back-umt4.onrender.com/api/status');
+      setStatusCode(response.data.statusCode);
     } catch (error) {
-      console.error('Error fetching status:', error);
+      if (error.response) {
+        // Server responded with a status other than 2xx
+        console.error('Server Error:', error.response.data);
+        console.error('Status Code:', error.response.status);
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error('No Response from Server:', error.request);
+      } else {
+        // Other errors (e.g., network error, config error)
+        console.error('Error Setting Up Request:', error.message);
+      }
     }
   };
 
