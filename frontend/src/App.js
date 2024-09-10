@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ESP32Status = () => {
   const [statusCode, setStatusCode] = useState(null);
 
   const fetchStatus = async () => {
     try {
-      const response = await axios.get('http://web-back-umt4.onrender.com/api/status');
-      setStatusCode(response.data.statusCode);
+      const response = await fetch('http://web-back-umt4.onrender.com/api/status');
+      if (response.ok) {
+        const data = await response.json();
+        setStatusCode(data.statusCode);
+      } else {
+        console.error('Failed to fetch status. Status:', response.status);
+      }
     } catch (error) {
       console.error('Error fetching status:', error);
     }
