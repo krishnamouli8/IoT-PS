@@ -6,20 +6,10 @@ const ESP32Status = () => {
 
   const fetchStatus = async () => {
     try {
-      const response = await axios.get('http://web-back-umt4.onrender.com/api/status');
+      const response = await axios.get('http://172.168.0.123:5000/api');
       setStatusCode(response.data.statusCode);
     } catch (error) {
-      if (error.response) {
-        // Server responded with a status other than 2xx
-        console.error('Server Error:', error.response.data);
-        console.error('Status Code:', error.response.status);
-      } else if (error.request) {
-        // Request was made but no response received
-        console.error('No Response from Server:', error.request);
-      } else {
-        // Other errors (e.g., network error, config error)
-        console.error('Error Setting Up Request:', error.message);
-      }
+      console.error('Error fetching status:', error);
     }
   };
 
